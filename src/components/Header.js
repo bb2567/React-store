@@ -1,6 +1,25 @@
 import React from "react";
 
 class Header extends React.Component {
+  renderLink() {
+    const username = this.props.username;
+    if (username) {
+      return (
+        <span className="username">
+          <i className="far fa-user"></i>
+          {this.props.username}
+        </span>
+      );
+    } else {
+      return (
+        <>
+          <a href="/">Login</a>
+          <a href="/">Register</a>
+        </>
+      );
+    }
+  }
+
   render() {
     return (
       <div className="header">
@@ -8,10 +27,7 @@ class Header extends React.Component {
           <div className="start">
             <a href="/">HOME</a>
           </div>
-          <div className="end">
-            <a href="/">Login</a>
-            <a href="/">Register</a>
-          </div>
+          <div className="end">{this.renderLink()}</div>
         </div>
       </div>
     );

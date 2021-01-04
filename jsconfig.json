@@ -1,3 +1,4 @@
+// 修改根路徑
 {
     "compilerOptions": {
         "baseUrl": "src"

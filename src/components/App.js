@@ -6,7 +6,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="main">
-        <Header />
+        <Header username="Admin"/>
         <Products />
  
       </div>
