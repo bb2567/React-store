@@ -1,7 +1,6 @@
-// 修改根路徑
 {
     "compilerOptions": {
-        "baseUrl": "src"
+      "baseUrl": "src"
     },
     "include": ["src"]
-}
+  }

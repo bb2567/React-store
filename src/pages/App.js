@@ -8,7 +8,6 @@ class App extends React.Component {
       <div className="main">
         <Header username="Admin"/>
         <Products />
- 
       </div>
     );
   }
