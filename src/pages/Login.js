@@ -1,12 +1,19 @@
 import React, { Component } from "react";
 
-
 class Login extends Component {
+  handleSubmit = (event) => {
+    // 1.阻止默認行為
+    event.preventDefault();
+    // 2.取得表單資料
+    // 3.處理登入
+    // 4.push切換至首頁
+    this.props.history.push('/')
+  };
   render() {
-    return ( 
+    return (
       <>
         <div className="login-wrapper">
-          <from className="box login-box">
+          <form className="box login-box" onSubmit={this.handleSubmit}>
             <div className="field">
               <label className="label">Email</label>
               <div className="control">
@@ -22,7 +29,7 @@ class Login extends Component {
             <div className="control">
               <button className="button is-fullwidth is-primary">Login</button>
             </div>
-          </from>
+          </form>
         </div>
       </>
     );
