@@ -1,6 +1,30 @@
 import React from "react";
 
 class ToolBox extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      searchText: "",
+    };
+  }
+  // 獲取
+  handleChange = (e) => {
+    const value = e.target.value;
+    this.setState({
+      searchText: value,
+    });
+    // 
+    this.props.search(value)
+  };
+  // 清除
+  clearSearchText = () => {
+    this.setState({
+      searchText: "",
+    });
+    this.props.search('')
+  };
+ 
+
   render() {
     return (
       <>
@@ -13,16 +37,20 @@ class ToolBox extends React.Component {
                   type="text"
                   className="input search-input"
                   placeholder="Search Product"
+                  value={this.state.searchText}
+                  onChange={this.handleChange}
                 />
               </div>
               <div className="control">
-                <button className="button">X</button>
+                <button className="button" onClick={this.clearSearchText}>
+                  X
+                </button>
               </div>
             </div>
           </div>
           <div className="cart-box">
-              <i className="fas fa-shopping-cart"></i>
-              <span className="cart num">(0)</span>
+            <i className="fas fa-shopping-cart"></i>
+            <span className="cart num">(0)</span>
           </div>
         </div>
       </>

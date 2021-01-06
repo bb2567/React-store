@@ -8,6 +8,7 @@ class Products extends React.Component {
     super();
     this.state = {
       products: [],
+      sourceProduct: [],
     };
   }
 
@@ -15,14 +16,29 @@ class Products extends React.Component {
     axios.get("/products").then((response) => {
       this.setState({
         products: response.data,
+        sourceProduct: response.data,
       });
     });
   }
 
+  // 商品搜尋 將值傳到子元件Toolbox
+  search = (text) => {
+    console.log(text);
+    // 1. get new Array (複製)
+    let _products = [...this.state.sourceProduct];
+    // 2. filter new Array
+    _products = _products.filter((p) => {
+      const matchArray = p.name.match(new RegExp(text, "gi"));
+      return !!matchArray;
+    });
+    // 3.set  State
+    this.setState({ products: _products });
+  };
+
   render() {
     return (
-      <div className="">
-        <ToolBox />
+      <>
+        <ToolBox search={this.search} />
         <div className="products">
           <div className="columns is-multiline is-desktop">
             {this.state.products.map((p) => {
@@ -34,7 +50,7 @@ class Products extends React.Component {
             })}
           </div>
         </div>
-      </div>
+      </>
     );
   }
 }
