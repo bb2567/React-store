@@ -8,14 +8,16 @@ class Product extends Component {
     // 使用Panel的方法
     Panel.open({
       component: EditInventory,
-      props:{
+      props: {
         product: this.props.product,
       },
       callback: (data) => {
-        console.log(data);
+        if (data) {
+          this.props.update(data);
+        }
       },
     });
-  }; 
+  };
 
   render() {
     const { name, image, tags, price, status } = this.props.product;

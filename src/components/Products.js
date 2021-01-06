@@ -52,15 +52,33 @@ class Products extends React.Component {
   };
 
   // 將新增的商品加入商品列表
-  add = product => {
+  add = (product) => {
     const _products = [...this.state.products];
     _products.push(product);
+    // 搜尋用
     const _sProducts = [...this.state.sourceProducts];
     _sProducts.push(product);
 
     this.setState({
       products: _products,
-      sourceProducts: _sProducts
+      sourceProducts: _sProducts,
+    });
+  };
+
+  // update 更新修改後的商品資訊
+  update = (product) => {
+    const _products = [...this.state.products];
+    // 取得索引
+    const _index = _products.findIndex((p) => p.id === product.id);
+    _products.splice(_index, 1, product);
+    //
+    const _sProducts = [...this.state.sourceProducts];
+    const _sIndex = _sProducts.findIndex((p) => p.id === product.id);
+    _sProducts.splice(_sIndex, 1, product);
+
+    this.setState({
+      products: _products,
+      sourceProducts: _sProducts,
     });
   };
 
@@ -79,7 +97,7 @@ class Products extends React.Component {
                     key={p.id}
                   >
                     <div className="column is-3" key={p.id}>
-                      <Product product={p} />
+                      <Product product={p} update={this.update}/>
                     </div>
                   </CSSTransition>
                 );

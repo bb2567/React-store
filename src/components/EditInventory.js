@@ -14,7 +14,7 @@ class EditInventory extends React.Component {
       status: "available",
     };
   }
-  // 讀取資料 需要id 
+  // 讀取資料 需要id
   componentDidMount() {
     const { id, name, image, tags, price, status } = this.props.product;
     this.setState({ id, name, image, tags, price, status });
@@ -28,7 +28,7 @@ class EditInventory extends React.Component {
     });
   };
 
-  // 
+  //
   submit = (e) => {
     e.preventDefault();
     const product = { ...this.state };
