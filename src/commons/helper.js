@@ -1,5 +1,5 @@
   export const formatPrice = (thousand) => {
-    return thousand.toLocaleString('zh',{
+    return (thousand/1).toLocaleString('zh',{
       style:'currency',
       currency: 'NTD'
     })
