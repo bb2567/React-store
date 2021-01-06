@@ -12,6 +12,11 @@ class Product extends Component {
       <>
         <div className={_pClass[status]}>
           <div className="p-content">
+            <div className="p-head has-text-right">
+              <div className="icon edit-btn">
+                <i className="fas fa-sliders-h"></i>
+              </div>
+            </div>
             <div className="img-wrapper">
               <div className="out-stock-text">Out of Stock</div>
               {/* scss ：out-stock-text 判斷顯示 */}
