@@ -5,6 +5,10 @@ class AddInventory extends React.Component {
     return (
       <div className="inventory">
         <p className="title has-text-centered">inventory</p>
+        <br/>
+        <div className="control">
+            <input type="text" className="input"/>
+        </div>
         <br />
         <div className="control">
           <button
