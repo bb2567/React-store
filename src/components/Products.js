@@ -12,6 +12,7 @@ class Products extends React.Component {
     this.state = {
       products: [],
       sourceProducts: [],
+      cartNum: 0,
     };
   }
 
@@ -22,7 +23,27 @@ class Products extends React.Component {
         sourceProducts: response.data,
       });
     });
+    this.updateCartNum()
   }
+
+  // 取得購物車 總商品數量
+  initCarNum = async () => {
+    const res = await axios.get("/carts");
+    // 沒有值就給空陣列
+    const carts = res.data || [];
+    const cartNum = carts
+      .map((cart) => cart.mount) //[2,1,2,1]
+      .reduce((a, value) => a + value, 0);
+
+      return cartNum 
+  };
+
+    updateCartNum = async() => {
+      const cartNum = await this.initCarNum()
+      this.setState({
+        cartNum: cartNum,
+      });
+    };
 
   // 商品搜尋 將值傳到子元件Toolbox
   search = (text) => {
@@ -95,7 +116,7 @@ class Products extends React.Component {
   render() {
     return (
       <>
-        <ToolBox search={this.search} />
+        <ToolBox search={this.search} cartNum={this.state.cartNum} />
         <div className="products">
           <div className="columns is-multiline is-desktop">
             <TransitionGroup component={null}>
@@ -111,6 +132,7 @@ class Products extends React.Component {
                         product={p}
                         update={this.update}
                         delete={this.delete}
+                        updateCartNum={this.updateCartNum}
                       />
                     </div>
                   </CSSTransition>

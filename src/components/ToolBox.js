@@ -4,10 +4,10 @@ class ToolBox extends React.Component {
   constructor() {
     super();
     this.state = {
-      searchText: "",
+      searchText: ""
     };
   }
-  // 獲取
+  // 搜尋欄獲取
   handleChange = (e) => {
     const value = e.target.value;
     this.setState({
@@ -16,7 +16,7 @@ class ToolBox extends React.Component {
     // 
     this.props.search(value)
   };
-  // 清除
+  // 搜尋欄清除
   clearSearchText = () => {
     this.setState({
       searchText: "",
@@ -24,6 +24,7 @@ class ToolBox extends React.Component {
     this.props.search('')
   };
  
+
 
   render() {
     return (
@@ -50,7 +51,7 @@ class ToolBox extends React.Component {
           </div>
           <div className="cart-box">
             <i className="fas fa-shopping-cart"></i>
-            <span className="cart num">(0)</span>
+            <span className="cart num">({this.props.cartNum})</span>
           </div>
         </div>
       </>
