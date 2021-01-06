@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { formatPrice } from "commons/helper";
 import Panel from "components/Panel";
 import EditInventory from "../components/EditInventory";
+import axios from "../commons/axios";
+import { toast } from "react-toastify";
 
 class Product extends Component {
   toEdit = () => {
@@ -10,7 +12,7 @@ class Product extends Component {
       component: EditInventory,
       props: {
         product: this.props.product,
-        deleteProduct: this.props.delete
+        deleteProduct: this.props.delete,
       },
       callback: (data) => {
         if (data) {
@@ -20,6 +22,20 @@ class Product extends Component {
     });
   };
 
+  addCart = () => {
+    const { id, name, image, price } = this.props.product;
+    const cart = {
+      productId: id,
+      name,
+      image,
+      price,
+      mount: 1, 
+    };
+    axios.post("/carts", cart).then((res) => {
+      console.log(res.data);
+      toast("Add Cart"+ res.data.name );
+    });
+  };
   render() {
     const { name, image, tags, price, status } = this.props.product;
     const _pClass = {
@@ -47,7 +63,11 @@ class Product extends Component {
           </div>
           <div className="p-footer">
             <p className="price">{formatPrice(price)}</p>
-            <button className="add-cart" disabled={status === "unavailable"}>
+            <button
+              className="add-cart"
+              disabled={status === "unavailable"}
+              onClick={this.addCart}
+            >
               <i className="fas fa-shopping-cart"></i>
               <i className="fas fa-exclamation"></i>
             </button>
