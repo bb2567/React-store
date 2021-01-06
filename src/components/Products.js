@@ -3,6 +3,7 @@ import axios from "../commons/axios";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import ToolBox from "./ToolBox";
 import Product from "./Product";
+import Panel from "../components/Panel";
 
 class Products extends React.Component {
   constructor() {
@@ -36,16 +37,24 @@ class Products extends React.Component {
     this.setState({ products: _products });
   };
 
+  toAdd = () => {
+    Panel.open();
+  };
+
   render() {
     return (
-      <> 
+      <>
         <ToolBox search={this.search} />
         <div className="products">
           <div className="columns is-multiline is-desktop">
             <TransitionGroup component={null}>
               {this.state.products.map((p) => {
                 return (
-                  <CSSTransition classNames="product-fade" timeout={300} key={p.id}>
+                  <CSSTransition
+                    classNames="product-fade"
+                    timeout={300}
+                    key={p.id}
+                  >
                     <div className="column is-3" key={p.id}>
                       <Product product={p} />
                     </div>
@@ -54,6 +63,9 @@ class Products extends React.Component {
               })}
             </TransitionGroup>
           </div>
+          <button className="button is-primary add-btn" onClick={this.toAdd}>
+            add
+          </button>
         </div>
       </>
     );
