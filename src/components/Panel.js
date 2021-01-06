@@ -1,22 +1,32 @@
 import React from "react";
 import { render } from "react-dom";
+
 class Panel extends React.Component {
   constructor() {
     super();
     this.state = {
       active: false,
+      component: null,
+      callback: () => {},
     };
   }
-  open = () => {
+  open = (options) => {
+    const { component, callback } = options;
+    //
+    const _component = React.createElement(component, { close: this.close });
     this.setState({
-      active: true
+      active: true,
+      component: _component,
+      callback: callback,
     });
   };
 
-  close = () => {
+  close = (data) => {
+    // data 由 AddInventory 元件回傳
     this.setState({
-      active: false
+      active: false,
     });
+    this.state.callback(data);
   };
 
   render() {
@@ -33,7 +43,7 @@ class Panel extends React.Component {
               <span className="close" onClick={this.close}>
                 x
               </span>
-              <p className="has-text-centered">Children Component</p>
+              {this.state.component}
             </div>
           </div>
         </div>
@@ -45,5 +55,5 @@ const _div = document.createElement("div");
 document.body.appendChild(_div);
 
 const _panel = render(<Panel />, _div);
-console.log(_panel);
+
 export default _panel;
