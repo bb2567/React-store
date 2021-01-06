@@ -22,20 +22,37 @@ class Product extends Component {
     });
   };
 
-  addCart = () => {
+  //加入購物車  使用 async await
+
+  addCart = async () => {
     const { id, name, image, price } = this.props.product;
-    const cart = {
-      productId: id,
-      name,
-      image,
-      price,
-      mount: 1, 
-    };
-    axios.post("/carts", cart).then((res) => {
-      console.log(res.data);
-      toast("Add Cart"+ res.data.name );
-    });
+
+    try {
+      // 判斷是否有重複id商品
+      const res = await axios.get(`/carts?productId=${id}`);
+      const carts = res.data;
+      // 如果有 則將商品數量+1
+      if (carts && carts.length > 0) {
+        const cart = carts[0];
+        cart.mount += 1;
+        await axios.put(`carts/${cart.id}`, cart);
+        // 沒有 則將商品加入購物車
+      } else {
+        const cart = {
+          productId: id,
+          name,
+          image,
+          price,
+          mount: 1,
+        };
+        await axios.post("/carts", cart);
+      }
+      toast("Add Cart Success");
+    } catch (error) {
+      toast.error("Add Cart Failed");
+    }
   };
+
   render() {
     const { name, image, tags, price, status } = this.props.product;
     const _pClass = {
