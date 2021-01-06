@@ -1,10 +1,11 @@
 import React from "react";
+import { withRouter } from "react-router-dom";
 
 class ToolBox extends React.Component {
   constructor() {
     super();
     this.state = {
-      searchText: ""
+      searchText: "",
     };
   }
   // 搜尋欄獲取
@@ -13,18 +14,20 @@ class ToolBox extends React.Component {
     this.setState({
       searchText: value,
     });
-    // 
-    this.props.search(value)
+    //
+    this.props.search(value);
   };
   // 搜尋欄清除
   clearSearchText = () => {
     this.setState({
       searchText: "",
     });
-    this.props.search('')
+    this.props.search("");
   };
- 
 
+  goCart = () => {
+    this.props.history.push("/cart");
+  };
 
   render() {
     return (
@@ -49,7 +52,7 @@ class ToolBox extends React.Component {
               </div>
             </div>
           </div>
-          <div className="cart-box">
+          <div to="/cart" className="cart-box" onClick={this.goCart}>
             <i className="fas fa-shopping-cart"></i>
             <span className="cart num">({this.props.cartNum})</span>
           </div>
@@ -59,4 +62,4 @@ class ToolBox extends React.Component {
   }
 }
 
-export default ToolBox;
+export default withRouter(ToolBox);
