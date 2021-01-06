@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "commons/axios"
 
 class AddInventory extends React.Component {
   constructor() {
@@ -22,7 +23,13 @@ class AddInventory extends React.Component {
   submit = (e) => {
       e.preventDefault();
       const product ={...this.state}
-      console.log(product)
+      axios.post('products', product).then(res=>{
+          console.log(res.data)
+        //   新增完關閉
+          this.props.close(res.data)
+        //   提示更新完成
+        alert('Add Success')
+      })
   };
 
   render() {
@@ -98,7 +105,7 @@ class AddInventory extends React.Component {
               <button className="button is-link">Submit</button>
             </div>
             <div className="control">
-              <button className="button ">Cancel</button>
+              <button className="button" type="button" onChange={()=>{this.props.close()}}>Cancel</button>
             </div>
           </div>
         </form>

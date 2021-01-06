@@ -4,14 +4,14 @@ import { CSSTransition, TransitionGroup } from "react-transition-group";
 import ToolBox from "./ToolBox";
 import Product from "./Product";
 import Panel from "../components/Panel";
-import AddInventory from '../components/AddInventory'
+import AddInventory from "../components/AddInventory";
 
 class Products extends React.Component {
   constructor() {
     super();
     this.state = {
       products: [],
-      sourceProduct: [],
+      sourceProducts: [],
     };
   }
 
@@ -19,7 +19,7 @@ class Products extends React.Component {
     axios.get("/products").then((response) => {
       this.setState({
         products: response.data,
-        sourceProduct: response.data,
+        sourceProducts: response.data,
       });
     });
   }
@@ -40,10 +40,27 @@ class Products extends React.Component {
 
   toAdd = () => {
     Panel.open({
-      component:AddInventory,
-      callback:data =>{
-        console.log('Products Data:', data)
-      }
+      // 從 AddInventory callback 回傳的data
+      component: AddInventory,
+      callback: (data) => {
+        // 如果有資料就 使用 新增的商品加入商品列表
+        if (data) {
+          this.add(data);
+        }
+      },
+    });
+  };
+
+  // 將新增的商品加入商品列表
+  add = product => {
+    const _products = [...this.state.products];
+    _products.push(product);
+    const _sProducts = [...this.state.sourceProducts];
+    _sProducts.push(product);
+
+    this.setState({
+      products: _products,
+      sourceProducts: _sProducts
     });
   };
 
