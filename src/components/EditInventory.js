@@ -28,7 +28,7 @@ class EditInventory extends React.Component {
     });
   };
 
-  //
+  //修改
   submit = (e) => {
     e.preventDefault();
     const product = { ...this.state };
@@ -38,6 +38,14 @@ class EditInventory extends React.Component {
       //   新增完關閉
       this.props.close(res.data);
       //   提示更新完成
+      toast.success("Edit Success");
+    });
+  };
+
+  onDelete = () => {
+    axios.delete(`products/${this.state.id}`).then((res) => {
+      this.props.deleteProduct(this.state.id);
+      this.props.close();
       toast.success("Edit Success");
     });
   };
@@ -113,6 +121,15 @@ class EditInventory extends React.Component {
           <div className="field is-grouped is-grouped-centered">
             <div className="control">
               <button className="button is-link">Submit</button>
+            </div>
+            <div className="control">
+              <button
+                className="button is-danger"
+                type="button"
+                onClick={this.onDelete}
+              >
+                Delete
+              </button>
             </div>
             <div className="control">
               <button

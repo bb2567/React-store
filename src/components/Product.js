@@ -10,6 +10,7 @@ class Product extends Component {
       component: EditInventory,
       props: {
         product: this.props.product,
+        deleteProduct: this.props.delete
       },
       callback: (data) => {
         if (data) {
