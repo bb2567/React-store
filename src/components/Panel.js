@@ -10,11 +10,16 @@ class Panel extends React.Component {
       callback: () => {},
     };
   }
-  open = (options) => {
-    const { component, callback } = options;
+  open = (options={
+    props:{},
+    component:null,
+    callback: () => {},
+  }) => {
+    const { props, component, callback } = options;
     //添加key使panel每次打開為 唯一
     const _key = new Date().getTime();
     const _component = React.createElement(component, {
+      ...props,
       close: this.close,
       key: _key,
     });

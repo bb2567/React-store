@@ -6,12 +6,18 @@ class EditInventory extends React.Component {
   constructor() {
     super();
     this.state = {
+      id: "",
       name: "",
       price: "",
       tags: "",
       image: "",
       status: "available",
     };
+  }
+  // 讀取資料 需要id 
+  componentDidMount() {
+    const { id, name, image, tags, price, status } = this.props.product;
+    this.setState({ id, name, image, tags, price, status });
   }
 
   handelChange = (e) => {
@@ -21,15 +27,18 @@ class EditInventory extends React.Component {
       [name]: value,
     });
   };
+
+  // 
   submit = (e) => {
     e.preventDefault();
     const product = { ...this.state };
-    axios.post("products", product).then((res) => {
+    // put 修改
+    axios.put(`products/${this.state.id}`, product).then((res) => {
       console.log(res.data);
       //   新增完關閉
       this.props.close(res.data);
       //   提示更新完成
-      toast.success("Add Success");
+      toast.success("Edit Success");
     });
   };
 
