@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import axios from "../commons/axios";
 import { formatPrice } from "../commons/helper";
 
@@ -6,8 +6,11 @@ const CartItem = (props) => {
   //   數量狀態的改變
   const [mount, setMount] = useState(props.cart.mount);
   const { id, name, image, price } = props.cart || {};
-  //   小計
-  const sumPrice = formatPrice(mount * parseInt(price));
+  
+  //   小計 使用 useMemo 當 mount, price 發現變化才重新渲染
+  const sumPrice = useMemo(() => {
+    return formatPrice(mount * parseInt(price));
+  }, [mount, price]);
 
   const handleChang = (e) => {
     const _mount = parseInt(e.target.value);
@@ -24,9 +27,6 @@ const CartItem = (props) => {
       props.deleteCart(props.cart);
     });
   };
-
-  
-
 
   return (
     <div className="columns is-vcentered">
