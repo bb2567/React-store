@@ -1,21 +1,22 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Header = (props) => (
   <div className="header">
     <div className="grid">
       <div className="start">
-        <a href="/">HOME</a>
+        <Link to="/">HOME</Link>
       </div>
       <div className="end">
-        {props.username ? (
-          <span className="username">
+        {props.user.nickname ? (
+          <span className="nickname">
             <i className="far fa-user"></i>
-            {props.username}
+            {props.user.nickname}
           </span>
         ) : (
           <>
-            <a href="/login">Login</a>
-            <a href="/">Register</a>
+            <Link to="/login">Login</Link>
+            <Link to="/register">Register</Link>
           </>
         )}
       </div>
