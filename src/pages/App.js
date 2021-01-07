@@ -1,14 +1,13 @@
 import React from "react";
-import Header from "components/Header";
 import Products from "components/Products";
+import Layout from "Layout";
 
 class App extends React.Component {
   render() {
     return (
-      <div className="main">
-        <Header username="Admin"/>
+      <Layout>
         <Products />
-      </div>
+      </Layout>
     );
   }
 }
