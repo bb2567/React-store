@@ -1,22 +1,39 @@
+import React, { useState, useEffect } from "react";
+import CartItem from "../components/CartItem";
 import Layout from "Layout";
-import React from "react";
-import CartItem from "../components/CartItem"
+import axios from "../commons/axios";
+import { formatPrice } from "commons/helper";
 
-const Cart = () => (
-  <Layout>
-    <div className="cart-page">
-      <span className="cart-title">shopping Cart</span>
-      <div className="cart-list">
-        <CartItem />
-        <CartItem />
-        <CartItem />
+const Cart = () => {
+  const [carts, setCart] = useState([]);
+
+  useEffect(() => {
+    axios.get("/carts").then((res) => setCart(res.data));
+  });
+
+  const totalPrice = () => {
+    const totalPrice = carts
+      .map((cart) => cart.mount * parseInt(cart.price))
+      .reduce((a, value) => a + value, 0);
+    return formatPrice(totalPrice) ;
+  };
+
+  return (
+    <Layout>
+      <div className="cart-page">
+        <span className="cart-title">shopping Cart</span>
+        <div className="cart-list">
+          {carts.map((cart) => (
+            <CartItem key={cart.id} cart={cart} />
+          ))}
+        </div>
+        <div className="cart-total">
+          Total:
+          <span className="total-price">{totalPrice()}</span>
+        </div>
       </div>
-      <div className="cart-total">
-        Total:
-        <span className="total-price">2345</span>
-      </div>
-    </div>
-  </Layout>
-);
+    </Layout>
+  );
+};
+
 export default Cart;
- 
