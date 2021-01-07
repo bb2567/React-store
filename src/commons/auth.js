@@ -1,20 +1,19 @@
 import decode from "jwt-decode";
 const JWT = "store_token";
 
+// 將token儲存至 localStorage
 const setToken = (token) => {
-  // 將資料儲存至 localStorage
-
   localStorage.setItem(JWT, token);
 };
-
+// 取得 localStorage 的 token
 const getToken = (token) => {
   return localStorage.getItem(JWT);
 };
 // 判斷是否已經登入
-const isLogin= () =>{
+const isLogin = () => {
   const jwToken = getToken();
   return !!jwToken && !isTokenExpired();
-}
+};
 
 // 解碼後取得使用者資料
 const getUser = () => {
@@ -28,7 +27,7 @@ const getUser = () => {
   }
 };
 // -------------- 判斷token 是否過期
-const isTokenExpired = token => {
+const isTokenExpired = (token) => {
   try {
     const _info = decode(token);
     if (_info.exp < Date.now() / 1000) {
@@ -39,15 +38,14 @@ const isTokenExpired = token => {
   }
 };
 
-const logout = () =>{
-  localStorage.removeItem(JWT)
-}
-
-
+const logout = () => {
+  localStorage.removeItem(JWT);
+};
 
 // 全域變量
 global.auth = {
   setToken,
   getUser,
-  logout
+  isLogin,
+  logout,
 };
