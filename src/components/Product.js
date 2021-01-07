@@ -33,6 +33,7 @@ class Product extends Component {
     }
 
     try {
+      const user = global.auth.getUser() || {}
       const { id, name, image, price } = this.props.product;
       // 判斷是否有重複id商品
       const res = await axios.get(`/carts?productId=${id}`);
@@ -44,12 +45,14 @@ class Product extends Component {
         await axios.put(`carts/${cart.id}`, cart);
         // 沒有 則將商品加入購物車
       } else {
+        // 添加
         const cart = {
           productId: id,
           name,
           image,
           price,
           mount: 1,
+          userID:user.email
         };
         await axios.post("/carts", cart);
       }

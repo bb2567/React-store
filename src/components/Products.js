@@ -28,7 +28,12 @@ class Products extends React.Component {
 
   // 取得購物車 總商品數量
   initCarNum = async () => {
-    const res = await axios.get("/carts");
+    const user = global.auth.getUser() || {}
+    const res = await axios.get("/carts",{
+      params:{
+        userID:user.email
+      }
+    });
     // 沒有值就給空陣列
     const carts = res.data || [];
     const cartNum = carts

@@ -9,7 +9,8 @@ const Cart = () => {
   const [carts, setCart] = useState([]);
 
   useEffect(() => {
-    axios.get("/carts").then((res) => setCart(res.data));
+    const user = global.auth.getUser() || {}
+    axios.get(`/carts?userID=${user.email}`).then((res) => setCart(res.data));
   }, []);
 
   // 使用  useMemo 優化
