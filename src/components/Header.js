@@ -14,7 +14,7 @@ const Header = (props) => (
           </span>
         ) : (
           <>
-            <a href="/">Login</a>
+            <a href="/login">Login</a>
             <a href="/">Register</a>
           </>
         )}

@@ -1,17 +1,34 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import axios from "commons/axios";
+import { toast } from "react-toastify";
 
 export default function Login(props) {
   //
   const { register, handleSubmit, errors } = useForm();
 
-  const onSubmit = (data) => {
-    console.log(data);
-    // 3.處理登入
-    // 4.push切換至首
-    // this.props.history.push("/");
+
+  const onSubmit = async (data) => {
+    // 3.登入判斷
+    try {
+      const { email, password } = data;
+      const res = await axios.post("/auth/login", { email, password });
+      const jwToken = res.data;
+      console.log(jwToken);
+
+      // 將資料儲存至 localStorage
+      global.auth.setToken(jwToken)
+      toast.success("Login Success");
+      // 4.跳轉頁面
+      props.history.push("/");
+
+    } catch (error) {
+      // console.log(error.response.data);
+      const message = error.response.data;
+      toast.error(message);
+    }
+
   };
-  console.log(errors);
 
   return (
     <>
@@ -55,7 +72,9 @@ export default function Login(props) {
                 })}
               />
               {errors.password && (
-                <p className="helper has-text-danger">{errors.password.message}</p>
+                <p className="helper has-text-danger">
+                  {errors.password.message}
+                </p>
               )}
             </div>
           </div>
