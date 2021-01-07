@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { withRouter } from "react-router-dom";
 import { formatPrice } from "commons/helper";
 import Panel from "components/Panel";
 import EditInventory from "../components/EditInventory";
@@ -25,9 +26,14 @@ class Product extends Component {
   //加入購物車  使用 async await
 
   addCart = async () => {
-    const { id, name, image, price } = this.props.product;
+    if (!global.auth.isLogin()) {
+      this.props.history.push("/login");
+      toast.info("Please Login First");
+      return;
+    }
 
     try {
+      const { id, name, image, price } = this.props.product;
       // 判斷是否有重複id商品
       const res = await axios.get(`/carts?productId=${id}`);
       const carts = res.data;
@@ -54,6 +60,19 @@ class Product extends Component {
     }
   };
 
+  renderMangerBtn = () => {
+    const user = global.auth.getUser() || {};
+    if (user.type === 1) {
+      return (
+        <div className="p-head has-text-right" onClick={this.toEdit}>
+          <div className="icon edit-btn">
+            <i className="fas fa-sliders-h"></i>
+          </div>
+        </div>
+      );
+    }
+  };
+
   render() {
     const { name, image, tags, price, status } = this.props.product;
     const _pClass = {
@@ -64,11 +83,7 @@ class Product extends Component {
       <>
         <div className={_pClass[status]}>
           <div className="p-content">
-            <div className="p-head has-text-right" onClick={this.toEdit}>
-              <div className="icon edit-btn">
-                <i className="fas fa-sliders-h"></i>
-              </div>
-            </div>
+            {this.renderMangerBtn()}
             <div className="img-wrapper">
               <div className="out-stock-text">Out of Stock</div>
               {/* scss ：out-stock-text 判斷顯示 */}
@@ -96,4 +111,4 @@ class Product extends Component {
   }
 }
 
-export default Product;
+export default withRouter(Product);

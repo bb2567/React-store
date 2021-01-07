@@ -1,5 +1,6 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
+import { toast } from "react-toastify";
 
 class ToolBox extends React.Component {
   constructor() {
@@ -26,6 +27,11 @@ class ToolBox extends React.Component {
   };
 
   goCart = () => {
+    if (!global.auth.isLogin()) {
+      this.props.history.push("/login");
+      toast.info("Please Login First");
+      return;
+    }
     this.props.history.push("/cart");
   };
 

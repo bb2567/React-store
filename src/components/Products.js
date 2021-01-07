@@ -23,7 +23,7 @@ class Products extends React.Component {
         sourceProducts: response.data,
       });
     });
-    this.updateCartNum()
+    this.updateCartNum();
   }
 
   // 取得購物車 總商品數量
@@ -35,15 +35,15 @@ class Products extends React.Component {
       .map((cart) => cart.mount) //[2,1,2,1]
       .reduce((a, value) => a + value, 0);
 
-      return cartNum 
+    return cartNum;
   };
 
-    updateCartNum = async() => {
-      const cartNum = await this.initCarNum()
-      this.setState({
-        cartNum: cartNum,
-      });
-    };
+  updateCartNum = async () => {
+    const cartNum = await this.initCarNum();
+    this.setState({
+      cartNum: cartNum,
+    });
+  };
 
   // 商品搜尋 將值傳到子元件Toolbox
   search = (text) => {
@@ -140,9 +140,11 @@ class Products extends React.Component {
               })}
             </TransitionGroup>
           </div>
-          <button className="button is-primary add-btn" onClick={this.toAdd}>
-            add
-          </button>
+          {(global.auth.getUser() || {}).type === 1 && (
+            <button className="button is-primary add-btn" onClick={this.toAdd}>
+              add
+            </button>
+          )}
         </div>
       </>
     );
