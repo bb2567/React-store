@@ -8,11 +8,22 @@ export default function Register(props) {
   const { register, handleSubmit, errors } = useForm();
 
   const onSubmit = async (data) => {
-    // 3.登入判斷
+    // 3.註冊判斷
     try {
-      
+      const { nickname, email, password } = data;
+      const res = await axios.post("/auth/register", {
+        nickname,
+        email,
+        password,
+        type: 0,
+      });
+      const jwToken = res.data;
+      global.auth.setToken(jwToken);
+      toast.success("Register Success");
+      props.history.push("/");
     } catch (error) {
-     
+      const message = error.response.data;
+      toast.error(message);
     }
   };
 
