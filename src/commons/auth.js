@@ -39,11 +39,15 @@ const isTokenExpired = token => {
   }
 };
 
+const logout = () =>{
+  localStorage.removeItem(JWT)
+}
 
 
 
 // 全域變量
 global.auth = {
   setToken,
-  getUser
+  getUser,
+  logout
 };
