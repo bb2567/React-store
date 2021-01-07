@@ -1,70 +1,61 @@
-import React, { Component } from "react";
+import React from "react";
+import { useForm } from "react-hook-form";
 
-class Login extends Component {
-  // state
-  constructor() {
-    super();
-    this.state = {
-      email: "",
-      password: "",
-    };
-  }
+export default function Login(props) {
+  //
+  const { register, handleSubmit, errors } = useForm();
 
-  handleSubmit = (event) => {
-    // 1.阻止默認行為
-    event.preventDefault();
-    // 2.取得表單資料
-    console.log(this.state);
+  const onSubmit = (data) => {
+    console.log(data);
     // 3.處理登入
-    // 4.push切換至首頁
+    // 4.push切換至首
     // this.props.history.push("/");
   };
+  console.log(errors);
 
-  handleChang = (e) => {
-    this.setState({
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  render() {
-    return (
-      <>
-        <div className="login-wrapper">
-          <form className="box login-box" onSubmit={this.handleSubmit}>
-            <div className="field">
-              <label className="label">Email</label>
-              <div className="control">
-                <input
-                  className="input"
-                  type="text"
-                  placeholder="Email"
-                  name="email"
-                  value={this.state.email}
-                  onChange={this.handleChang}
-                />
-              </div>
-            </div>
-            <div className="field">
-              <label className="label">Password</label>
-              <div className="control">
-                <input
-                  className="input"
-                  type="text"
-                  placeholder="Password"
-                  name="password"
-                  value={this.state.password}
-                  onChange={this.handleChang}
-                />
-              </div>
-            </div>
+  return (
+    <>
+      <div className="login-wrapper">
+        <form className="box login-box" onSubmit={handleSubmit(onSubmit)}>
+          <div className="field">
+            <label className="label">Email</label>
             <div className="control">
-              <button className="button is-fullwidth is-primary">Login</button>
+              <input
+                className={`input ${errors.email && "is-danger"}`}
+                type="text"
+                placeholder="Email"
+                name="email"
+                ref={register({
+                  required: true,
+                })}
+              />
+              {errors.email && (
+                <p className="helper has-text-danger">email is required</p>
+              )}
             </div>
-          </form>
-        </div>
-      </>
-    );
-  }
+          </div>
+          <div className="field">
+            <label className="label">Password</label>
+            <div className="control">
+              <input
+                className={`input ${errors.password && "is-danger"}`}
+                type="text"
+                placeholder="Password"
+                name="password"
+                ref={register({
+                  required: true,
+                })}
+              />
+               {errors.password && (
+                <p className="helper has-text-danger">password is required</p>
+              )}
+            </div>
+          </div>
+          <div className="control">
+            <button className="button is-fullwidth is-primary">Login</button>
+          </div>
+        </form>
+      </div>
+    </>
+  );
 }
-
-export default Login;
