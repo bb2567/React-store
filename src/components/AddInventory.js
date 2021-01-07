@@ -109,7 +109,7 @@ class AddInventory extends React.Component {
               <button
                 className="button"
                 type="button"
-                onChange={() => {
+                onClick={() => {
                   this.props.close();
                 }}
               >
