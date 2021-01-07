@@ -13,13 +13,24 @@ const CartItem = (props) => {
     const _mount = parseInt(e.target.value);
     setMount(_mount);
     const newCart = { ...props.cart, mount: _mount };
-    axios.put(`/carts/${id}`, newCart).then((res) => {});
-    // 將newCart 傳遞到 Cart的  updateCart()
-    props.updateCart(newCart)
+    axios.put(`/carts/${id}`, newCart).then((res) => {
+      // 將newCart 傳遞到 Cart的  updateCart()
+      props.updateCart(newCart);
+    });
   };
+
+  const deleteCart = () => {
+    axios.delete(`/carts/${id}`).then((res) => {
+      props.deleteCart(props.cart);
+    });
+  };
+
+  
+
+
   return (
     <div className="columns is-vcentered">
-      <div className="column is-narrow">
+      <div className="column is-narrow" onClick={deleteCart}>
         <span className="close">X</span>
       </div>
       <div className="column is-narrow">
