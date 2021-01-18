@@ -54,7 +54,7 @@ class Products extends React.Component {
   search = (text) => {
     console.log(text);
     // 1. get new Array (複製)
-    let _products = [...this.state.sourceProduct];
+    let _products = [...this.state.sourceProducts];
     // 2. filter new Array
     _products = _products.filter((p) => {
       const matchArray = p.name.match(new RegExp(text, "gi"));
