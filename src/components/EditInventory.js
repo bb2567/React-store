@@ -132,10 +132,10 @@ class EditInventory extends React.Component {
               </button>
             </div>
             <div className="control">
-              <button
+            <button
                 className="button"
                 type="button"
-                onChange={() => {
+                onClick={() => {
                   this.props.close();
                 }}
               >

@@ -84,6 +84,7 @@ class Product extends Component {
     };
     return (
       <>
+
         <div className={_pClass[status]}>
           <div className="p-content">
             {this.renderMangerBtn()}
