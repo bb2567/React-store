@@ -1,6 +1,8 @@
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Demo
+[vercel](https://react-store-bb2567.vercel.app/)
 
 ## 啟動方式
 需搭配 [json-server](https://github.com/bb2567/React-store-API)
