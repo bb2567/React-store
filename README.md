@@ -1,11 +1,17 @@
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-## Demo
+
+## Demo （只能讀取,無法寫入）
 [vercel](https://react-store-bb2567.vercel.app/)
+admin (admin@gmail.com password:123456)
+user (user@gmail.com pasword:123456)
+
 
 ## 啟動方式
 需搭配 [json-server](https://github.com/bb2567/React-store-API)
+
+終端機中：輸入 npm i
 
 在目錄的終端機中：
 ### `yarn start` or `npm start`
