@@ -2,9 +2,14 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Demo （只能讀取,無法寫入）
-[vercel](https://react-store-bb2567.vercel.app/)
+## 使用 vercel Demo （只能讀取,無法寫入）
+Demo：https://react-store-bb2567.vercel.app/
+
+帳號
+
+
 admin (admin@gmail.com password:123456)
+
 user (user@gmail.com pasword:123456)
 
 
